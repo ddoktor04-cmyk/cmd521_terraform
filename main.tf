@@ -22,5 +22,33 @@ resource "aws_instance" "EC2_instance" {
     Name = "Demo Instance"
   }
 
+  vpc_security_group_ids = [aws_security_group.SG_Terrafrom.id]
 }
 
+resource "aws_security_group" "SG_Terrafrom" {
+  name        = "SG_Terraform"
+  description = "Security group for Terraform demo"
+}
+
+resource "aws_security_group_rule" "ingress_rule" {
+  for_each = {
+    "ssh"  = { from_port = 22, to_port = 22, description = "SSH access" }
+    "http" = { from_port = 80, to_port = 80, description = "HTTP access" }
+  }
+  type              = "ingress"
+  from_port         = each.value.from_port
+  to_port           = each.value.to_port
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  description       = each.value.description
+  security_group_id = aws_security_group.SG_Terrafrom.id
+}
+
+resource "aws_security_group_rule" "egress_rule" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.SG_Terrafrom.id
+}
