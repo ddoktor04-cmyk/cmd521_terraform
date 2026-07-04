@@ -20,6 +20,15 @@ resource "aws_instance" "EC2_instance" {
     }
   }
 
+  ebs_block_device {
+    device_name = "/dev/sdf"
+    volume_size = 5
+    volume_type = "gp3"
+    tags = {
+      Name = "DataVolume"
+    }
+  }
+
   tags = {
     Name = "Demo Instance PZT"
   }
