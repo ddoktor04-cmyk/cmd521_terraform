@@ -1,11 +1,11 @@
 variable "aws_access_key" {
   type    = string
-  default = ""
+  default = "AKIA6MWM7YECS3WAFAB5"
 }
 
 variable "aws_secret_key" {
   type    = string
-  default = ""
+  default = "cnUrnundoos2rzDLhTQ/w17hMKNcP98NKcZTLPWs"
 }
 
 variable "aws_region" {
@@ -30,5 +30,5 @@ variable "aws_instance_type" {
 
 variable "aws_key_name" {
   type    = string
-  default = "Stockholm_3"
+  default = "Key1"
 }
